@@ -422,7 +422,7 @@ class ConwayDisplay
         {
             milliseconds = std::chrono::high_resolution_clock::now() - this->timePoint;
         }
-	}
+    }
 
 	~ConwayDisplay()
 	{
