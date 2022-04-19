@@ -5,9 +5,22 @@ My attempt at Conway's Game of Life. The application initializes a n * m array w
   <li> If the cell is active and has two active neighbours, the cell's state remains active.</li>
   <li> Otherwise the cell's state is inactive.
 </ol>
-
 ## Motivation
 The motivation behind this project was to create a fun project that utilizes X11.
+
+## Features
+<ol>
+  <li>Cell count easily modified by two variables (xUnits, yUnits).</li>
+  <li>Cell's can be rendered by either drawing pixels or filling rectangles.</li>
+  <li>Frames per second can be modified by changing input to ConwayDisplay.</li>
+</ol>
+
+## Possible Improvements
+<ol>
+  <li>Utilizing double buffer with OpenGL to prevent flickering at high cell count.</li>
+  <li>Only calculating and applying rules to active cells and their neighbours.</li>
+  <li>Catching resize events to apply dynamic projection.</li>
+</ol>
 
 ## Requirements
 The requirements are xorg, the X11 library, and a c++ compiler.
