@@ -109,13 +109,13 @@ class GridOfLife : public Grid
                 for (int y = 0; y < yUnits; y++)
                 {
                     if (!distr(gen))
-		    {
-		        grid[x].push_back(1);
-		    }
+                    {
+                        grid[x].push_back(1);
+                    }
                     else
-		    {
-		        grid[x].push_back(0);
-		    }
+                    {
+                        grid[x].push_back(0);
+                    }
                 }
             }
         }
@@ -253,19 +253,20 @@ class GridOfLife : public Grid
             for (int x = 0; x < this->getXUnits(); x++)
             {
                 for (int y = 0; y < yUnits; y++)
-                {
+                }
                     liveNeighbours = this->liveNeighbours[x][y];
                     if (liveNeighbours == 3)
-		    {
-		        grid[x][y] = 1;
-		    }
-                    else if ((liveNeighbours == 2) && (grid[x][y]))
-		    {
-		        grid[x][y] = 1;
-		    }
-                    else {
-		        grid[x][y] = 0;
-		    }
+                    {
+                        grid[x][y] = 1;
+                    }
+                    else if ((liveNeighbours == 2) && grid[x][y])
+                    {
+                        grid[x][y] = 1;
+                    }
+                    else
+                    {
+                        grid[x][y] = 0;
+                    }
                 }
             }
         }
@@ -352,90 +353,90 @@ class ConwayDisplay
 
 	int nextEvent()
 	{
-	    XNextEvent(
-		this->display,
-		&this->event
-		);
-	    if (this->event.type == Expose)
-	    {
-		this->clearWindow();
-		return Expose;
-	    }
-	    return -1;
+        XNextEvent(
+            this->display,
+            &this->event
+            );
+        if (this->event.type == Expose)
+        {
+            this->clearWindow();
+            return expose;
+        }
+        return -1;
 	}
 
 	void clearWindow()
 	{
-	    XClearWindow(
-		this->display,
-		this->window
-		);
+        XClearWindow(
+            this->display,
+            this->window
+            );
 	}
 
 	void throwEventExpose()
 	{
 	    XExposeEvent exposeEvent;
 	    exposeEvent.type = Expose;
-	    XSendEvent(
-		this->display,
-		this->window,
-		false,
-		ExposureMask,
-		(XEvent *) &exposeEvent
-		);
+        XSendEvent(
+            this->display,
+            this->window,
+            false,
+            ExposureMask,
+            (XEvent *) &exposeEvent
+            );
 	}
 
 	void drawPoint(int _x, int _y)
 	{
-	    XDrawPoint(
-		this->display,
-		this->window,
-		this->graphicsContext,
-		_x,
-		_y
-		);
+        XDrawPoint(
+            this->display,
+            this->window,
+            this->graphicsContext,
+            _x,
+            _y
+            );
 	}
 
 	void fillRectangle(int _x, int _y, int _width, int _height)
 	{
-	    XFillRectangle(
-		this->display,
-		this->window,
-		this->graphicsContext,
-		_x,
-		_y,
-		_width,
-		_height
-		);
+        XFillRectangle(
+            this->display,
+            this->window,
+            this->graphicsContext,
+            _x,
+            _y,
+            _width,
+            _height
+            );
 	}
 
 	void tick()
 	{
-            this->timePoint = std::chrono::high_resolution_clock::now();
+        this->timePoint = std::chrono::high_resolution_clock::now();
 	}
 
 	void synchTicks()
 	{
 	    std::chrono::duration<double, std::milli> milliseconds = std::chrono::high_resolution_clock::now() - this->timePoint;
-	    while (milliseconds.count() < (1000 / this->fps))
-	    {
-		milliseconds = std::chrono::high_resolution_clock::now() - this->timePoint;
-	    }
+        while (milliseconds.count() < (100 / this->fps))
+        {
+            milliseconds = std::chrono::high_resolution_clock::now() - this->timePoint;
+        }
 	}
 
 	~ConwayDisplay()
 	{
-	    XFreeGC(
-		this->display,
-		this->graphicsContext
-		);
-	    XUnmapWindow(
-		this->display,
-		this->window
-		);
-	    XCloseDisplay(
-		this->display
-		);
+        XFreeGC(
+            this->display,
+            this->graphicsContext
+            );
+        XUnmapWindow(
+            this->display,
+            this->window
+            );
+        XCloseDisplay(
+            this->display
+        );
 	}
 
 };
