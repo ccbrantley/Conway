@@ -253,7 +253,7 @@ class GridOfLife : public Grid
             for (int x = 0; x < this->getXUnits(); x++)
             {
                 for (int y = 0; y < yUnits; y++)
-                }
+                {
                     liveNeighbours = this->liveNeighbours[x][y];
                     if (liveNeighbours == 3)
                     {
@@ -360,7 +360,7 @@ class ConwayDisplay
             if (this->event.type == Expose)
             {
                 this->clearWindow();
-                return expose;
+                return Expose;
             }
             return -1;
         }
