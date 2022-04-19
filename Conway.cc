@@ -424,8 +424,8 @@ class ConwayDisplay
         }
     }
 
-	~ConwayDisplay()
-	{
+    ~ConwayDisplay()
+    {
         XFreeGC(
             this->display,
             this->graphicsContext
@@ -437,7 +437,7 @@ class ConwayDisplay
         XCloseDisplay(
             this->display
         );
-	}
+    }
 
 };
 
