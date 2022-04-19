@@ -351,93 +351,93 @@ class ConwayDisplay
 
         Window getWindow() { return this->window; }
 
-	int nextEvent()
-	{
-        XNextEvent(
-            this->display,
-            &this->event
-            );
-        if (this->event.type == Expose)
+        int nextEvent()
         {
-            this->clearWindow();
-            return expose;
+            XNextEvent(
+                this->display,
+                &this->event
+                );
+            if (this->event.type == Expose)
+            {
+                this->clearWindow();
+                return expose;
+            }
+            return -1;
         }
-        return -1;
-	}
 
-	void clearWindow()
-	{
-        XClearWindow(
-            this->display,
-            this->window
-            );
-	}
-
-	void throwEventExpose()
-	{
-	    XExposeEvent exposeEvent;
-	    exposeEvent.type = Expose;
-        XSendEvent(
-            this->display,
-            this->window,
-            false,
-            ExposureMask,
-            (XEvent *) &exposeEvent
-            );
-	}
-
-	void drawPoint(int _x, int _y)
-	{
-        XDrawPoint(
-            this->display,
-            this->window,
-            this->graphicsContext,
-            _x,
-            _y
-            );
-	}
-
-	void fillRectangle(int _x, int _y, int _width, int _height)
-	{
-        XFillRectangle(
-            this->display,
-            this->window,
-            this->graphicsContext,
-            _x,
-            _y,
-            _width,
-            _height
-            );
-	}
-
-	void tick()
-	{
-        this->timePoint = std::chrono::high_resolution_clock::now();
-	}
-
-	void synchTicks()
-	{
-	    std::chrono::duration<double, std::milli> milliseconds = std::chrono::high_resolution_clock::now() - this->timePoint;
-        while (milliseconds.count() < (100 / this->fps))
+        void clearWindow()
         {
-            milliseconds = std::chrono::high_resolution_clock::now() - this->timePoint;
+            XClearWindow(
+                this->display,
+                this->window
+                );
         }
-    }
 
-    ~ConwayDisplay()
-    {
-        XFreeGC(
-            this->display,
-            this->graphicsContext
+        void throwEventExpose()
+        {
+	        XExposeEvent exposeEvent;
+	        exposeEvent.type = Expose;
+            XSendEvent(
+                this->display,
+                this->window,
+                false,
+                ExposureMask,
+                (XEvent *) &exposeEvent
+                );
+        }
+
+        void drawPoint(int _x, int _y)
+        {
+            XDrawPoint(
+                this->display,
+                this->window,
+                this->graphicsContext,
+                _x,
+                _y
+                );
+        }
+
+        void fillRectangle(int _x, int _y, int _width, int _height)
+        {
+            XFillRectangle(
+                this->display,
+                this->window,
+                this->graphicsContext,
+                _x,
+                _y,
+                _width,
+                _height
+                );
+        }
+
+        void tick()
+        {
+            this->timePoint = std::chrono::high_resolution_clock::now();
+        }
+
+        void synchTicks()
+        {
+	        std::chrono::duration<double, std::milli> milliseconds = std::chrono::high_resolution_clock::now() - this->timePoint;
+            while (milliseconds.count() < (100 / this->fps))
+            {
+                milliseconds = std::chrono::high_resolution_clock::now() - this->timePoint;
+            }
+        }
+
+        ~ConwayDisplay()
+        {
+            XFreeGC(
+                this->display,
+                this->graphicsContext
+                );
+            XUnmapWindow(
+                this->display,
+                this->window
+                );
+            XCloseDisplay(
+                this->display
             );
-        XUnmapWindow(
-            this->display,
-            this->window
-            );
-        XCloseDisplay(
-            this->display
-        );
-    }
+        }
 
 };
 
