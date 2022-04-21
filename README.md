@@ -5,6 +5,7 @@ My attempt at Conway's Game of Life in C/C++. The application initializes a n * 
   <li> If the cell is active and has two active neighbours, the cell's state remains active.</li>
   <li> Otherwise the cell's state is inactive.
 </ol>
+
 ## Motivation
 The motivation behind this project was to create a fun project that utilizes X11.
 
